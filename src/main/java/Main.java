@@ -6,6 +6,8 @@ public class Main {
         new DataBase().add( new Product("dasfa", "asf", 10, 2));
         new DataBase().add( new Product("dasfssssa", "asf", 10, 34));
         new DataBase().add( new Product("dasfa", "asf", 10, 34));
+      //  new DataBase().delete( new Product("dasfssssa", "asf", 10, 68));
+        new GUI();
 
     }
 }
