@@ -3,8 +3,6 @@ public class Product {
     private String type;
     private int price;
     private int count;
-
-
     public String getName() {
         return name;
     }

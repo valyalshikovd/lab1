@@ -1,12 +1,11 @@
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 public class DataBase {
     private static Connection connection = null;
 
-    public static Connection getConnection() throws SQLException {
+    private Connection getConnection() throws SQLException {
         if(connection == null){
             String userName = "root";
             String password = "30102023";
@@ -16,13 +15,10 @@ public class DataBase {
         return connection;
     }
     public void add(Product product) throws SQLException {
-
         String sql = "SELECT * FROM product WHERE product_name = ?";
         PreparedStatement statement1 = getConnection().prepareStatement(sql);
         statement1.setString(1, product.getName());
         ResultSet resultSet = statement1.executeQuery();
-
-
         if(resultSet.next()){
             int id = resultSet.getInt("idproduct");
             int countCurrent = resultSet.getInt("product_count");
@@ -31,10 +27,8 @@ public class DataBase {
             statement2.setInt(1, countCurrent + product.getCount());
             statement2.setInt(2, id);
             statement2.executeUpdate();
-            System.out.println("каво");
             return;
         }
-
         sql = "INSERT INTO product ( product_name, product_type, product_price, product_count) VALUES ( ?, ?, ?, ?)";
         PreparedStatement statement3 = getConnection().prepareStatement(sql);
         statement3.setString(1, product.getName());
@@ -63,8 +57,6 @@ public class DataBase {
         PreparedStatement statement1 = getConnection().prepareStatement(sql);
         statement1.setString(1, product.getName());
         ResultSet resultSet = statement1.executeQuery();
-
-
         if(resultSet.next()){
             int id = resultSet.getInt("idproduct");
             int countCurrent = resultSet.getInt("product_count");
@@ -93,7 +85,6 @@ public class DataBase {
         ResultSet resultSet = statement.executeQuery();
         List<Product> res = new LinkedList<>();
         while (resultSet.next()) {
-            System.out.println("sds");
             res.add(new Product(resultSet.getString("product_name"), resultSet.getString("product_type"), resultSet.getInt("product_price"), resultSet.getInt("product_count")));
         }
         return res;
@@ -103,8 +94,6 @@ public class DataBase {
         PreparedStatement statement1 = getConnection().prepareStatement(sql);
         statement1.setString(1, product.getName());
         ResultSet resultSet = statement1.executeQuery();
-
-
         if(resultSet.next()){
             int id = resultSet.getInt("idproduct");
             sql = "UPDATE product SET product_name = ? , product_type = ? , product_price = ?, product_count = ? WHERE idproduct = ?";

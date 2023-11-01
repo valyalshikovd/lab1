@@ -12,22 +12,20 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class GUI extends JFrame {
-
     private Object[] columnHeaders = new String[]{ "Name", "Type", "Price", "Count"};
-
-    private DefaultTableModel dtm = new DefaultTableModel();
-    private JButton addButton = new JButton("Add");
-    private JButton editButton = new JButton("Edit");
-    private JButton removeButton = new JButton("Remove");
-    private JPanel productEditor = new JPanel();
-    private JTextField nameEditor = new JTextField();
-    private JTextField typeEditor = new JTextField();
-    private JTextField priceEditor = new JTextField();
-    private JTextField countEditor = new JTextField();
-    private JPanel panel = new JPanel();
-    private Container container;
-    private JTable table = new JTable(dtm);
-    private DataBase dataBase = new DataBase();
+    private final DefaultTableModel dtm = new DefaultTableModel();
+    private final JButton addButton = new JButton("Add");
+    private final JButton editButton = new JButton("Edit");
+    private final JButton removeButton = new JButton("Remove");
+    private final JPanel productEditor = new JPanel();
+    private final JTextField nameEditor = new JTextField();
+    private final JTextField typeEditor = new JTextField();
+    private final JTextField priceEditor = new JTextField();
+    private final JTextField countEditor = new JTextField();
+    private final JPanel panel = new JPanel();
+    private final Container container;
+    private final JTable table = new JTable(dtm);
+    private final DataBase dataBase = new DataBase();
 
     public GUI() throws SQLException {
         super("Paper Market");
@@ -35,9 +33,6 @@ public class GUI extends JFrame {
         this.setLocationRelativeTo(null);
         this.setSize(1280, 720);
         this.setResizable(false);
-
-
-
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(final MouseEvent e) {
@@ -48,9 +43,6 @@ public class GUI extends JFrame {
                 countEditor.setText(table.getValueAt(index, 3) + "");
             }
         });
-
-
-
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -63,7 +55,6 @@ public class GUI extends JFrame {
                 }
             }
         });
-
         editButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,7 +71,6 @@ public class GUI extends JFrame {
                 }
             }
         });
-
         removeButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -97,7 +87,6 @@ public class GUI extends JFrame {
                 }
             }
         });
-
         container = this.getContentPane();
         container.setLayout(new GridLayout(3, 1, 1, 1));
         panel.add(addButton);
@@ -123,7 +112,6 @@ public class GUI extends JFrame {
     private void updateTable() throws SQLException {
         dtm.setRowCount(0);
         List<Product> list = dataBase.showAll();
-
         for (Product p : list){
             Object[] data = new String[5];
             data[0] = p.getName();
@@ -132,8 +120,6 @@ public class GUI extends JFrame {
             data[3] = p.getCount() + "";
             dtm.addRow(data);
         }
-
-
         table.revalidate();
     }
 }
