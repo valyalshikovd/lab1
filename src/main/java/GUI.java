@@ -6,6 +6,8 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -35,20 +37,17 @@ public class GUI extends JFrame {
         this.setResizable(false);
 
 
-        ListSelectionListener listener = new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                // Получить выделенную строку
-                int selectedRow = table.getSelectedRow();
 
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(final MouseEvent e) {
                 int index = table.getSelectedRow();
                 nameEditor.setText(table.getValueAt(index, 0) + "");
                 typeEditor.setText(table.getValueAt(index, 1) + "");
                 priceEditor.setText(table.getValueAt(index, 2) + "");
                 countEditor.setText(table.getValueAt(index, 3) + "");
-                System.out.println("Выделена строка " + selectedRow);
             }
-        };
+        });
 
 
 
@@ -79,10 +78,6 @@ public class GUI extends JFrame {
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
-                nameEditor.setText( "");
-                typeEditor.setText("");
-                priceEditor.setText( "");
-                countEditor.setText( "");
             }
         });
 
